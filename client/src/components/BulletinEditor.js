@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BulletinDispatchContext } from "../App";
 
-const BulletinEditor = ({ isEdit, chosenData, id }) => {
+const BulletinEditor = ({ isEdit, chosenData, _id }) => {
   const { onCreateEdit, onRemove } = useContext(BulletinDispatchContext);
 
   const navigate = useNavigate();
@@ -22,15 +22,15 @@ const BulletinEditor = ({ isEdit, chosenData, id }) => {
       contentInput.current.focus();
       return;
     }
-    const id = isEdit ? chosenData.id : null;
-    onCreateEdit(author, content, id, isEdit);
+    const _id = isEdit ? chosenData._id : null;
+    onCreateEdit(author, content, _id, isEdit);
     // alert("저장 성공!");
     navigate("/");
   };
 
   const handleRemove = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      onRemove(chosenData.id);
+      onRemove(chosenData._id);
       navigate("/", { replace: true });
     }
   };

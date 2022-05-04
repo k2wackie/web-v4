@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
-require("./config/db");
+const db = require("./config/db");
 
 dotenv.config({
   path: path.join(__dirname, "/../.env"),

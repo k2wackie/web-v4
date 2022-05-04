@@ -9,16 +9,13 @@ import BulletinEditor from "../components/BulletinEditor";
 const Edit = () => {
   const [chosenData, setChosenData] = useState();
   const navigate = useNavigate();
-  const { id } = useParams();
-
+  const id = useParams();
   const bulletinData = useContext(BulletinStateContext);
-
   useEffect(() => {
     if (bulletinData.length >= 1) {
       const targetBulletin = bulletinData.find(
-        (it) => parseInt(it.id) === parseInt(id)
+        (it) => parseInt(it._id) === parseInt(id.id)
       );
-
       if (targetBulletin) {
         setChosenData(targetBulletin);
       } else {

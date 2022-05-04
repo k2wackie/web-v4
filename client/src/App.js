@@ -48,17 +48,17 @@ function App() {
   useEffect(() => {
     fetch("/api/bulletin/read")
       .then((res) => res.json())
-      .then((res) => {
-        const newData = res.success ? res.data : [{ id: 0, data: "" }];
-        dispatch({ type: "GET", data: newData });
+      .then((newData) => {
+        console.log(newData);
+        dispatch({ type: "GET", data: newData.data });
       })
       .catch((err) => console.log(err));
-  }, [data.length]);
+  }, []);
 
   // CREATE || EDIT
-  const onCreateEdit = (author, content, id, isEdit) => {
+  const onCreateEdit = (author, content, _id, isEdit) => {
     const req = {
-      id: id,
+      _id: _id,
       author: author,
       content: content,
       isEdit: isEdit,
@@ -67,8 +67,8 @@ function App() {
   };
 
   //DELETE
-  const onRemove = (id) => {
-    dispatch({ type: "DELETE", data: id });
+  const onRemove = (_id) => {
+    dispatch({ type: "DELETE", data: _id });
   };
 
   const AuthHomePage = Auth(Home, null);

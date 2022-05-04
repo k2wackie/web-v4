@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const BulletinItem = ({ id, author, content, in_date }) => {
+const BulletinItem = ({ _id, author, content, in_date }) => {
   const navigate = useNavigate();
 
   const goEdit = () => {
-    navigate(`edit/${id}`);
+    navigate(`edit/${_id}`);
   };
 
   const date = new Date(in_date);

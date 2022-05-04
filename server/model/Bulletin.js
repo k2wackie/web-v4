@@ -8,7 +8,7 @@ class Bulletin {
 
   async read() {
     try {
-      const response = await BulletinStorage.find();
+      const response = await BulletinStorage.find({ is_deleted: 0 });
       return { success: true, data: response };
     } catch (err) {
       return { success: false, err };
@@ -34,10 +34,16 @@ class Bulletin {
     const client = this.body;
     const author = client.author;
     const content = client.content;
-    const id = client.id;
-    const params = [author, content, id];
+    const _id = client._id;
+    const newdata = { author, content };
     try {
-      const response = await BulletinStorage.update(params);
+      const response = await BulletinStorage.findOneAndUpdate(
+        { _id: _id },
+        newdata,
+        (err, user) => {
+          if (err) return res.json({ success: false, err });
+        }
+      );
       return response;
     } catch (err) {
       return { success: false, err };
@@ -46,11 +52,15 @@ class Bulletin {
 
   async delete() {
     const client = this.body;
-    const id = client.id;
-    const params = [id];
-    console.log(this);
+    const _id = client.id;
     try {
-      const response = await BulletinStorage.delete(params);
+      const response = await BulletinStorage.findOneAndUpdate(
+        { _id: _id },
+        { is_deleted: 1 },
+        (err, user) => {
+          if (err) return res.json({ success: false, err });
+        }
+      ).clone();
       return response;
     } catch (err) {
       return { success: false, err };

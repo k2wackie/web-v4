@@ -10,7 +10,7 @@ const BulletinList = () => {
       <h2>게시판 리스트</h2>
       <div>
         {data.map((it) => (
-          <BulletinItem key={it.id} {...it} />
+          <BulletinItem key={it._id} {...it} />
         ))}
       </div>
     </div>

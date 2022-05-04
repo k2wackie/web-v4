@@ -15,6 +15,10 @@ const bulletinSchema = mongoose.Schema({
     required: true,
     default: () => +Date.now(),
   },
+  is_deleted: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const BulletinStorage = mongoose.model("bulletin", bulletinSchema);
