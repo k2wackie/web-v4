@@ -6,6 +6,7 @@ const process = {
   read: async (req, res) => {
     const bulletin = new Bulletin(req.body);
     const response = await bulletin.read();
+    console.log(response);
     const url = {
       method: "GET",
       status: response.err ? 400 : 200,

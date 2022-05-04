@@ -2,8 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-// const db = require("./config/db");
 const app = express();
+require("./config/db");
 
 dotenv.config({
   path: path.join(__dirname, "/../.env"),

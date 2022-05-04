@@ -11,6 +11,7 @@ class User {
 
   async isMatch(userPW, userPassword) {
     const isMatch = await bcrypt.compare(userPW, userPassword).catch((err) => {
+      console.log(err);
       return { success: false, err };
     });
     return isMatch;
@@ -23,11 +24,12 @@ class User {
     try {
       const user = await UserStorage.findOne({ email: userEmail });
       if (user) {
-        const isMatch = await this.isMatch(userPW, user.password).then(
-          (isMatch) => {
-            return (isMatch = isMatch);
-          }
-        );
+        const isMatch = await this.isMatch(
+          userPW.toString(),
+          user.password.toString()
+        ).then((isMatch) => {
+          return (isMatch = isMatch);
+        });
         if (user.email === userEmail && isMatch) {
           let token = jwt.sign(user._id.toString(), "secretToken");
           user.token = token;
@@ -58,15 +60,7 @@ class User {
     const client = this.body;
     const userEmail = client.userEmail;
     const userPW = client.userPW;
-    const userData = { email: userEmail };
-    await bcrypt
-      .hash(userPW, saltRounds)
-      .then(async (hash) => {
-        userData.password = hash;
-      })
-      .catch((err) => {
-        return { success: false, err };
-      });
+    const userData = { email: userEmail, password: userPW };
     const user = new UserStorage(userData);
     try {
       user.save((err) => {

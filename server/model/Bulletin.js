@@ -1,5 +1,5 @@
 "use strict";
-const BulletinStorage = require("./BulletinStorage");
+const { BulletinStorage } = require("../model/BulletinStorage");
 
 class Bulletin {
   constructor(body) {
@@ -8,7 +8,7 @@ class Bulletin {
 
   async read() {
     try {
-      const response = await BulletinStorage.getBulettinInfo();
+      const response = await BulletinStorage.find();
       return { success: true, data: response };
     } catch (err) {
       return { success: false, err };
@@ -19,10 +19,12 @@ class Bulletin {
     const client = this.body;
     const author = client.author;
     const content = client.content;
-    const params = [author, content];
+    const bulletin = BulletinStorage({ author: author, content: content });
     try {
-      const response = await BulletinStorage.create(params);
-      return response;
+      bulletin.save((err) => {
+        if (err) return { success: false, err };
+      });
+      return { success: true };
     } catch (err) {
       return { success: false, err };
     }
