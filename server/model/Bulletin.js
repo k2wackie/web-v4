@@ -9,7 +9,7 @@ class Bulletin {
   async read() {
     try {
       const response = await BulletinStorage.getBulettinInfo();
-      return response;
+      return { success: true, data: response };
     } catch (err) {
       return { success: false, err };
     }

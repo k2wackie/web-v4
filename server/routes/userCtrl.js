@@ -5,7 +5,6 @@ const process = {
   login: async (req, res) => {
     const user = new User(req.body);
     const response = await user.login();
-    // console.log(response);
     const url = {
       method: "POST",
       path: "/login",
@@ -42,7 +41,7 @@ const process = {
 
   logout: async (req, res) => {
     const user = new User(req.user);
-    await user.logout();
+    const response = await user.logout();
     const url = {
       method: "POST",
       path: "/login",
@@ -51,7 +50,7 @@ const process = {
     return res
       .status(url.status)
       .cookie("x_auth", "", { maxAge: 0 })
-      .json({ logoutSuccess: true });
+      .json(response);
   },
 };
 

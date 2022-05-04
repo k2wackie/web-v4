@@ -3,25 +3,31 @@ import { useNavigate } from "react-router-dom";
 const useLogin = (userInputData) => {
   const navigate = useNavigate();
 
-  const userIDInput = userInputData.userIDInput;
+  const userEmailInput = userInputData.userEmailInput;
   const userPWInput = userInputData.userPWInput;
 
-  const userID = userInputData.userID;
+  const userEmail = userInputData.userEmail;
   const userPW = userInputData.userPW;
   const userChkPW = userInputData.userChkPW;
 
   const req = {
-    userID,
+    userEmail,
     userPW,
   };
 
   const handleSubmit = async () => {
     if (userPW !== userChkPW) {
+      userPWInput.current.focus();
       alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
       return;
     }
-    if (userID.length < 1) {
-      userIDInput.current.focus();
+    if (userEmail.length < 1) {
+      userEmailInput.current.focus();
+      return;
+    }
+    if (![userEmail].join().split("").includes("@")) {
+      userEmailInput.current.focus();
+      alert("Email이 올바르지 않습니다.");
       return;
     }
     if (userPW.length < 1) {

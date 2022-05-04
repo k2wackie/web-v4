@@ -4,24 +4,24 @@ import useChkID from "../hooks/useChkID";
 import useRegist from "../hooks/useRegist";
 
 const RegisterComp = () => {
-  const userIDInput = useRef();
+  const userEmailInput = useRef();
   const userPWInput = useRef();
 
-  const [userID, setUserID] = useState("");
+  const [userEmail, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
   const [userChkPW, setUserChkPW] = useState("");
 
   const userInputData = {
-    userID,
+    userEmail,
     userPW,
     userChkPW,
-    userIDInput,
+    userEmailInput,
     userPWInput,
   };
 
   const [handleSubmit] = useRegist(userInputData);
   const [chkID, chkIDSubmit] = useChkID(userInputData);
-  console.log(chkID);
+  // console.log(chkID);
   const onClick = () => {
     return chkID ? handleSubmit() : alert("아이디 중복 확인을 해주세요.");
   };
@@ -32,11 +32,11 @@ const RegisterComp = () => {
         <div>회원가입</div>
         <div>
           <input
-            ref={userIDInput}
-            type="text"
-            name="userID"
+            ref={userEmailInput}
+            type="email"
+            name="userEmail"
             placeholder="아이디를 입력하세요."
-            value={userID}
+            value={userEmail}
             onChange={(e) => setUserID(e.target.value)}
           />
           <button className="chkBtn" onClick={chkIDSubmit}>

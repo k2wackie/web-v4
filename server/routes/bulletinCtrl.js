@@ -34,7 +34,6 @@ const process = {
   },
   delete: async (req, res) => {
     const bulletin = new Bulletin(req.params);
-    // console.log(req.params.id);
     const response = await bulletin.delete();
     const url = {
       method: "POST",

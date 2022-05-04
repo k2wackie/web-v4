@@ -2,28 +2,38 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 var jwt = require("jsonwebtoken");
-const UserStorage = require("../model/UserStorage");
+const { UserStorage } = require("../model/UserStorage");
 
 class User {
   constructor(body) {
     this.body = body;
   }
 
+  async isMatch(userPW, userPassword) {
+    const isMatch = await bcrypt.compare(userPW, userPassword).catch((err) => {
+      return { success: false, err };
+    });
+    return isMatch;
+  }
+
   async login() {
     const client = this.body;
-    const userID = client.userID;
+    const userEmail = client.userEmail;
     const userPW = client.userPW;
-    let token = jwt.sign(userID.toString(), "secretToken");
-    const userInfo = [token, userID];
     try {
-      const user = await UserStorage.getUserInfo(userInfo);
+      const user = await UserStorage.findOne({ email: userEmail });
       if (user) {
-        const isMatch = await bcrypt
-          .compare(userPW, user.user_PW)
-          .catch((err) => {
-            return { success: false, err };
+        const isMatch = await this.isMatch(userPW, user.password).then(
+          (isMatch) => {
+            return (isMatch = isMatch);
+          }
+        );
+        if (user.email === userEmail && isMatch) {
+          let token = jwt.sign(user._id.toString(), "secretToken");
+          user.token = token;
+          user.save(function (err, user) {
+            if (err) return { success: false, err };
           });
-        if (user.user_ID === userID && isMatch) {
           return { success: true, chkID: true, token };
         } else {
           return {
@@ -36,31 +46,33 @@ class User {
         return {
           success: false,
           chkID: false,
-          msg: "존재하지 않는 아이디입니다.",
+          msg: "존재하지 않는 이메일입니다.",
         };
       }
     } catch (err) {
-      return { success: false, err };
+      return { success: false, err, msg: "로그인 에러" };
     }
   }
 
   async register() {
     const client = this.body;
-    const userID = client.userID;
+    const userEmail = client.userEmail;
     const userPW = client.userPW;
-    const userInfo = [userID, userPW];
+    const userData = { email: userEmail };
     await bcrypt
       .hash(userPW, saltRounds)
       .then(async (hash) => {
-        userInfo[1] = hash;
+        userData.password = hash;
       })
       .catch((err) => {
         return { success: false, err };
       });
-
+    const user = new UserStorage(userData);
     try {
-      const response = await UserStorage.register(userInfo);
-      return response;
+      user.save((err) => {
+        if (err) return { success: false, err };
+      });
+      return { success: true };
     } catch (err) {
       return { success: false, err };
     }
@@ -68,21 +80,25 @@ class User {
 
   async logout() {
     const client = this.body;
-    const userID = client.user_ID;
-    const token = null;
-    const userInfo = [token, userID];
+    const userID = client._id;
     try {
-      const response = await UserStorage.logout(userInfo);
-      return response;
+      await UserStorage.findOneAndUpdate(
+        { _id: userID },
+        { token: "" },
+        (err) => {
+          if (err) return { success: false, err };
+        }
+      ).clone();
+      return { logoutSuccess: true };
     } catch (err) {
-      return { success: false, err };
+      return { logoutSuccess: false, err };
     }
   }
 
   static async findByToken(token, cb) {
     jwt.verify(token, "secretToken", async (err, decoded) => {
       try {
-        const user = await UserStorage.findByToken(token);
+        const user = await UserStorage.findOne({ _id: decoded, token: token });
         return cb(null, user);
       } catch (err) {
         return cb(err);

@@ -48,7 +48,8 @@ function App() {
   useEffect(() => {
     fetch("/api/bulletin/read")
       .then((res) => res.json())
-      .then((newData) => {
+      .then((res) => {
+        const newData = res.success ? res.data : [{ id: 0, data: "" }];
         dispatch({ type: "GET", data: newData });
       })
       .catch((err) => console.log(err));

@@ -3,11 +3,13 @@ import { useState } from "react";
 const useChkID = (userInputData) => {
   const [chkID, setChkId] = useState([]);
 
-  const userID = userInputData.userID;
-  const userPW = userInputData.userPW;
+  const userEmailInput = userInputData.userEmailInput;
 
+  const userEmail = userInputData.userEmail;
+  const userPW = userInputData.userPW;
+  console.log(userEmail);
   const req = {
-    userID,
+    userEmail,
     userPW,
   };
 
@@ -22,11 +24,18 @@ const useChkID = (userInputData) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.chkID) {
-          alert("이미 사용중인 아이디입니다.");
+          userEmailInput.current.focus();
+          alert("이미 사용중인 이메일입니다.");
           return setChkId(false);
-        } else {
-          alert("사용 가능한 아이디입니다.");
+        } else if (userEmail === "") {
+          userEmailInput.current.focus();
+          alert("이메일을 입력해 주세요.");
           return setChkId(true);
+        } else if (![userEmail].join().split("").includes("@")) {
+          userEmailInput.current.focus();
+          alert("Email이 올바르지 않습니다.");
+        } else {
+          alert("사용 가능한 이메일입니다.");
         }
       })
       .catch((err) => {

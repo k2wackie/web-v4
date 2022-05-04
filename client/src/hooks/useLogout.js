@@ -5,7 +5,6 @@ const useLogout = () => {
     await fetch("/api/logout")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.logoutSuccess) {
           navigate("/login");
         } else {

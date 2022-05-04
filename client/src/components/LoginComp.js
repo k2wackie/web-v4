@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 
 const LoginComp = () => {
-  const userIDInput = useRef();
+  const userEmailInput = useRef();
   const userPWInput = useRef();
 
-  const [userID, setUserID] = useState("");
+  const [userEmail, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
 
   const userInputData = {
-    userID,
+    userEmail,
     userPW,
-    userIDInput,
+    userEmailInput,
     userPWInput,
   };
 
@@ -24,11 +24,11 @@ const LoginComp = () => {
         <div>로그인</div>
         <div>
           <input
-            ref={userIDInput}
-            type="text"
-            name="userID"
-            placeholder="아이디를 입력하세요."
-            value={userID}
+            ref={userEmailInput}
+            type="email"
+            name="userEmail"
+            placeholder="이메일을 입력하세요."
+            value={userEmail}
             onChange={(e) => setUserID(e.target.value)}
           />
         </div>
