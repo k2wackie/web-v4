@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Noto+Sans+KR:wght@100&display=swap");
+
+:root {
+  --font-EN-family: "Dancing Script", cursive;
+  --font-KO-family: "Noto Sans KR", sans-serif;
+  --font-point-color: #fad91f;
+  --font-color: #f2f2f2;
+  --line-color: #eecc0b;
+}
+.loginComp {
+  text-align: center;
+
+  position: relative;
+  top: 100px;
+
+  font-family: var(--font-KO-family);
+  color: var(--font-color);
+}
+
+.loginBox {
+  display: inline-block;
+  border: 5px solid var(--line-color);
+  border-radius: 15px;
+  padding: 50px 70px;
+}
+
+.loginBox div:first-child {
+  font-weight: 600;
+  font-size: 25px;
+  padding: 15px;
+}
+
+.loginBox div:nth-child(n + 2):nth-child(-n + 4) {
+  padding: 5px;
+  width: 235px;
+}
+
+.loginBox div:nth-child(n + 3):nth-child(-n + 4) {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginBox input {
+  height: 36px;
+  width: -webkit-fill-available;
+  border-radius: 15px;
+  padding: 0 10px;
+  border: 0;
+}
+
+.chkBtn {
+  height: 38px;
+  position: fixed;
+  width: 53px;
+}
+
+.loginBox button {
+  font-size: 14px;
+  border-radius: 15px;
+  padding: 0 10px;
+  background-color: var(--line-color);
+  border: 0;
+  cursor: pointer;
+}
+
+.registerMSG,
+.registerMSG > Link {
+  font-size: 13px;
+}
+
+.registerLink,
+.registerMSG {
+  color: var(--font-color);
+  font-weight: 400;
+}
