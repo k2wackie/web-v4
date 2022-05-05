@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "bin": {
-    "web-v3": "bin/www.js"
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-build": "cd client && npm ci && npm run build && cd ..",
     "server-build": "cd server && npm ci && npm run start && cd ..",
-    "heroku-prebuild": "npm run client-build && npm run server-build",
+    "heroku-prebuild": "npm run client-build",
     "start": "cd server && npm run dev"
   },
   "repository": {
