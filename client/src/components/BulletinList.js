@@ -17,8 +17,8 @@ const BulletinList = () => {
   );
 };
 
-BulletinList.defaultProps = {
-  data: [],
-};
+// BulletinList.defaultProps = {
+//   data: [],
+// };
 
 export default React.memo(BulletinList);

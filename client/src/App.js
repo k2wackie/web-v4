@@ -43,17 +43,16 @@ const reducer = (state, action) => {
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
-
+  console.log(data.length);
   //GET DATA
   useEffect(() => {
     fetch("/api/bulletin/read")
       .then((res) => res.json())
       .then((newData) => {
-        console.log(newData);
         dispatch({ type: "GET", data: newData.data });
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [data.length]);
 
   // CREATE || EDIT
   const onCreateEdit = (author, content, _id, isEdit) => {
