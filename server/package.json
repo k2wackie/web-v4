@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd bin && npm www.js",
+    "start": "cd bin && node www.js",
     "client": "cd .. && cd client && npm start",
     "server": "nodemon ./bin/www.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
