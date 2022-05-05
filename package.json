@@ -12,7 +12,7 @@
     "client-build": "cd client && npm ci && npm run build && cd ..",
     "server-build": "cd server && npm ci && npm run start && cd ..",
     "heroku-prebuild": "npm run client-build",
-    "start": "cd server && npm run dev"
+    "start": "cd server && npm run start"
   },
   "repository": {
     "type": "git",
