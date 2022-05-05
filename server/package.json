@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "bin": {
-    "web-v3": "bin/www.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd bin && node www.js",
@@ -15,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/k2wackie/web-v3.git"
+    "url": "git+https://github.com/k2wackie/web-v4.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/k2wackie/web-v3/issues"
+    "url": "https://github.com/k2wackie/web-v4/issues"
   },
-  "homepage": "https://github.com/k2wackie/web-v3#readme",
+  "homepage": "https://github.com/k2wackie/web-v4#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "concurrently": "^7.1.0",
