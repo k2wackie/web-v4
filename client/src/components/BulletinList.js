@@ -4,7 +4,6 @@ import { BulletinStateContext } from "../App";
 
 const BulletinList = () => {
   const data = useContext(BulletinStateContext);
-  console.log(data);
   return (
     <div className="bulletinList">
       <h2>게시판 리스트</h2>

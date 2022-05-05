@@ -43,7 +43,6 @@ const reducer = (state, action) => {
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
-  console.log(data.length);
   //GET DATA
   useEffect(() => {
     fetch("/api/bulletin/read")

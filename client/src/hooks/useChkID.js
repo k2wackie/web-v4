@@ -7,7 +7,6 @@ const useChkID = (userInputData) => {
 
   const userEmail = userInputData.userEmail;
   const userPW = userInputData.userPW;
-  console.log(userEmail);
   const req = {
     userEmail,
     userPW,

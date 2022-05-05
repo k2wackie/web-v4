@@ -35,7 +35,6 @@ const useLogin = (userInputData) => {
       return;
     }
 
-    console.log("userData:", userInputData);
     await fetch("/api/user_register", {
       method: "POST",
       headers: {
