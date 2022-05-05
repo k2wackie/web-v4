@@ -21,9 +21,11 @@ const indexPath = path.join(__dirname + "/../../client/build/");
 
 if (process.env.NODE_ENV === "production") {
   //"client/build"는 react의 build파일 경로이다
-  app.use(express.static(indexPath));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(indexPath));
+  app.use(express.static(path.join(__dirname + "/../../client/build/")));
+  app.get("/", (req, res) => {
+    res.sendFile(
+      path.join(path.join(__dirname + "/../../client/build/index.html"))
+    );
   });
 }
 
